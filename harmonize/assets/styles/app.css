@@ -6,3 +6,7 @@ label {
 #genre_add {
     display: none;
 }
+
+#comment_form form div{
+    display: none;
+}
