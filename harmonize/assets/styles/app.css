@@ -2,3 +2,7 @@ label {
     margin-bottom: 1em;
     width: 6em;
 }
+
+#genre_add {
+    display: none;
+}

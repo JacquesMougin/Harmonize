@@ -2,11 +2,17 @@
 
 {% block title %}Administration Genres Musicaux{% endblock %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('genre') }}
+{% endblock %}
+
 {% block body %}
 <div class="example-wrapper">
     <h1 class="text-center m-5">Liste des Genres de Musique</h1>
 
-    <a class="btn btn-success mt-4" href="{{ path('music_add') }}">Ajouter</a>
+    <a class="btn btn-success mt-4">Ajouter</a>
+
+    {% include "admin/music_genre/add.html.twig" %}
 
     <table class="table">
         <thead>
@@ -26,8 +32,8 @@
             <div class="col">
             <td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <form action="{{ path('music_delete', {'id': music.id}) }}" method="post" class="d-inline">
-                    <button class="btn btn-danger">Supprimer</button>
+                <form class="delete_btn" action="{{ path('music_delete', {'id': music.id}) }}" method="post" class="d-inline">
+                    <button name="btnSubmit" class="btn btn-danger">Supprimer</button>
                     <input type="hidden" name="_method" value="delete">
                 </form>
                 {% endif %}

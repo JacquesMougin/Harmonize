@@ -22,8 +22,13 @@ class MusicGenreController extends AbstractController
      */
     public function browse(MusicGenreRepository $musicGenreRepository): Response
     {
+        $music = new MusicGenre();
+
+        $form = $this->createForm(MusicGenreType::class, $music);
+
         return $this->render('admin/music_genre/browse.html.twig', [
             'musicGenre' => $musicGenreRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
