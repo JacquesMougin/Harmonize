@@ -4,8 +4,6 @@ const comment = {
         console.log('JS loaded');
 
         comment.addAllEventListeners();
-
-        comment.loadProjectFromAPI();
     },
 
     userInput: document.querySelector("#comment_form > form > div:nth-child(1)"),
@@ -17,8 +15,12 @@ const comment = {
 
         projectBtn = document.getElementById('comment_project');
         projectBtn.addEventListener('click', this.handleClickOnProjectBtn);
+
+        commentForm = document.querySelector("#comment_form");
+        commentForm.addEventListener('submit', this.handleSearchByProject);
+        commentForm.addEventListener('submit', this.handleSearchByUser);
     },
-    
+
     handleClickOnUserBtn: function() {
         comment.userInput.style.display = 'block';
 
@@ -35,32 +37,62 @@ const comment = {
         };
     },
 
-    loadProjectFromAPI: function() {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            console.log(this.responseText);
-        }
-        xhttp.open("GET", "http://localhost:8000/api/v1/projects");
-        xhttp.send();
+    handleSearchByProject: function(e) {
+        e.preventDefault();
+
+        var commentProjectLabel = document.querySelector("#form_project").value;
+        var commentUserLabel = document.querySelector("#form_user").value;
+
+        fetch('http://localhost:8000/api/v1/projects')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function(data) {
+                for(let i = 0; i <= data.length - 1; i++) {
+
+                    console.log(data[i].name);
+                    
+                    if(String(data[i].name) == commentProjectLabel) {
+                        var match = true;
+                    }
+                }
+
+                if(match == true && commentUserLabel == "") {
+                    document.querySelector("#comment_form > form").submit();
+                } else if (match !== true && commentUserLabel === "") {
+                    window.alert('Le projet n\'existe pas');
+                }
+            })
     },
 
-    /* loadProjectFromAPI: function(){
-        const url = 'http://localhost:8000/api/v1/projects';
-    
-    
-        let fetchOptions = 
-        {
-            method : 'GET',
-            mode: 'cors',
-        };
-        fetch(url, fetchOptions)
-          .then(comment.convertFromJson) 
-    },
-    
-    convertFromJson(response){
-        console.log(response.json());
-        return response.json();
-    }, */
+    handleSearchByUser: function(e) {
+        e.preventDefault();
+
+        var commentUserLabel = document.querySelector("#form_user").value;
+        var commentProjectLabel = document.querySelector("#form_project").value;
+
+        fetch('http://localhost:8000/api/v1/users')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function(data) {
+                for(let i = 0; i <= data.length - 1; i++) {
+
+                    console.log(data[i].username);
+                    
+                    if(String(data[i].username) == commentUserLabel) {
+                        var match = true;
+                    }
+                }
+
+                if(match == true && commentProjectLabel == "") {
+                    document.querySelector("#comment_form > form").submit();
+                } else if (match !== true && commentProjectLabel === "") {
+                    window.alert('L\'utilisateur n\'existe pas');
+                }
+            })
+    }
+
 }
 
 document.addEventListener('DOMContentLoaded', comment.init);
