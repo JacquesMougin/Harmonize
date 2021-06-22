@@ -1,9 +1,46 @@
 # Harmonize
 
-Ceci est un projet que j'ai effectué au cours de ma formation O'Clock, sur une période de 1 mois et dans une équipe de 5 personnes.
-Il n'y a ici que la partie back-end puisque je n'ai pas (peu) travailler sur la partie front-end. J'ai seulement aidé mon équipe en appliquant du CSS.
+## About
 
-J'ai travaillé sur ce projet de A à Z. J'ai réalisé des wireframes, des users story et participer à l'élaboration du cahier des charges.
-Au niveau technique, j'ai réalisé le back-office et les aspects de sécurité. J'ai également créé une API que j'ai sécurisé avec des tokens JWT.
+This is a project I've been part of at the end of my web development studies. The idea was to create an app where musiciens and sound engineers would be able to meet to create and collaborate around music projects. A lot of improvement could be done but this is the version 1.0 that we made in a month.
 
-Pour plus d'informations concernant le projet, je vous invite à me contacter.
+I've worked on it from the start to the beginning. I've created wireframes, user stories and part of the specifications. I've created a back-office and its security aspects. I've also created an API that I've secured with JWT tokens.
+
+For further informations, you can join me via [Linkedin](https://www.linkedin.com/in/jacques-mougin/)
+
+## Installation
+
+```
+# Clone the repo
+git clone https://github.com/JacquesMougin/Harmonize.git
+
+# Install dependencies
+composer install
+yarn install
+
+# Build the assets
+yarn encore dev
+
+# Setup env file
+cp .env .env.local
+
+# Create BDD
+php bin/console d:d:c
+
+# Export migrations
+php bin/console d:mi:mi
+```
+
+There are some test fixtures in the SQLCommandV1.sql file.
+
+## Run locally
+
+```
+# Getting started
+php -S localhost:8000 -t public
+```
+
+## License
+
+Released under the MIT License, see LICENSE.
+
